@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClarityAI — Amélioration d'images par IA</title>
+  <meta name="description" content="Améliorez vos images avec l'IA. Netteté parfaite, détails récupérés, résultats instantanés. Gratuit, sans compte." />
+  <meta name="theme-color" content="#8B5CF6" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="ClarityAI — Amélioration d'images par IA" />
+  <meta property="og:description" content="Importez une image, l'IA améliore automatiquement la netteté et les détails." />
+  <meta property="og:type" content="website" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Grain texture overlay -->
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" aria-label="ClarityAI accueil">
+        <div class="logo-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+            <path d="M10 1.5L12.8 7.8H19.5L14 11.6L16.2 18.5L10 14.5L3.8 18.5L6 11.6L0.5 7.8H7.2L10 1.5Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <span>ClarityAI</span>
+      </a>
+      <div class="nav-links" role="navigation" aria-label="Navigation principale">
+        <a href="#how">Fonctionnement</a>
+        <a href="#features">Avantages</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <a href="#tool" class="btn btn-primary btn-sm nav-cta">Améliorer →</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile" role="navigation" aria-label="Menu mobile">
+      <a href="#how">Fonctionnement</a>
+      <a href="#features">Avantages</a>
+      <a href="#faq">FAQ</a>
+      <a href="#tool" class="btn btn-primary">Améliorer une image</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section class="hero" id="home">
+    <!-- Ambient orbs -->
+    <div class="hero-orbs" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <div class="container hero-grid">
+      <!-- Left: Text -->
+      <div class="hero-text">
+        <div class="hero-badge">
+          <div class="badge-dot" aria-hidden="true"></div>
+          <span>IA gratuite · Sans compte · Zéro donnée stockée</span>
+        </div>
+        <h1>Vos images méritent<br /><em class="hero-em">mieux que le flou.</em></h1>
+        <p class="hero-sub">
+          Importez une image, l'IA récupère automatiquement la netteté, les détails fins et le contraste.
+          Résultats en moins de 30 secondes, aucune donnée conservée.
+        </p>
+        <div class="hero-actions">
+          <a href="#tool" class="btn btn-primary btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+            </svg>
+            Améliorer une image
+          </a>
+          <a href="#how" class="btn btn-ghost btn-lg">Voir comment ça marche →</a>
+        </div>
+        <div class="hero-stats" aria-label="Statistiques clés">
+          <div class="stat">
+            <strong>100%</strong>
+            <span>Gratuit</span>
+          </div>
+          <div class="stat-sep" aria-hidden="true"></div>
+          <div class="stat">
+            <strong>0</strong>
+            <span>Donnée stockée</span>
+          </div>
+          <div class="stat-sep" aria-hidden="true"></div>
+          <div class="stat">
+            <strong>&lt;30s</strong>
+            <span>Traitement</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Before/After demo -->
+      <div class="hero-visual">
+        <div class="demo-card">
+          <div class="ba-container" id="heroSlider" role="img" aria-label="Démonstration avant/après de l'amélioration d'image">
+            <!-- After (base layer) -->
+            <div class="ba-layer ba-after">
+              <img src="https://picsum.photos/seed/clarity88/640/480" alt="Image améliorée" loading="lazy" draggable="false" />
+            </div>
+            <!-- Before (clipped top layer) -->
+            <div class="ba-layer ba-before" id="heroBeforeLayer">
+              <img class="img-degraded" src="https://picsum.photos/seed/clarity88/640/480" alt="Image originale" loading="lazy" draggable="false" />
+            </div>
+            <!-- Divider -->
+            <div class="ba-divider" id="heroDivider" aria-hidden="true">
+              <div class="ba-line"></div>
+              <div class="ba-handle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M8 5L1 12L8 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M16 5L23 12L16 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <!-- Labels -->
+            <div class="ba-labels" aria-hidden="true">
+              <span class="ba-lbl ba-lbl--before">Avant</span>
+              <span class="ba-lbl ba-lbl--after">Après</span>
+            </div>
+          </div>
+          <p class="demo-caption" aria-hidden="true">← Glissez pour comparer →</p>
+        </div>
+        <div class="demo-glow" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       HOW IT WORKS
+  ═══════════════════════════════════════════ -->
+  <section class="section" id="how">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Processus</span>
+        <h2>Simple comme<br />un, deux, trois.</h2>
+        <p>Aucune expertise requise. L'IA fait tout le travail en quelques secondes.</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card">
+          <div class="step-num" aria-hidden="true">1</div>
+          <div class="step-icon" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+            </svg>
+          </div>
+          <h3>Importez</h3>
+          <p>Glissez-déposez votre image ou cliquez pour la sélectionner. JPG, PNG, WebP jusqu'à 10 MB.</p>
+        </article>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <article class="step-card">
+          <div class="step-num" aria-hidden="true">2</div>
+          <div class="step-icon" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3>L'IA améliore</h3>
+          <p>Notre IA analyse chaque pixel et reconstruit les détails perdus : netteté, texture, profondeur.</p>
+        </article>
+        <div class="step-arrow" aria-hidden="true">→</div>
+        <article class="step-card">
+          <div class="step-num" aria-hidden="true">3</div>
+          <div class="step-icon" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            </svg>
+          </div>
+          <h3>Téléchargez</h3>
+          <p>Comparez avant/après avec le slider interactif, puis téléchargez votre image améliorée.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FEATURES
+  ═══════════════════════════════════════════ -->
+  <section class="section features-section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Avantages</span>
+        <h2>Tout ce qu'il faut,<br />rien de superflu.</h2>
+      </div>
+      <div class="features-grid">
+        <article class="feature-card feature-card--highlight">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+          </div>
+          <h3>100% Gratuit</h3>
+          <p>Aucun abonnement, aucune carte bancaire requise. ClarityAI est entièrement gratuit, pour toujours.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+          </div>
+          <h3>Sans compte</h3>
+          <p>Pas d'inscription, pas d'email. Utilisez l'outil directement, sans aucune friction.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Traitement rapide</h3>
+          <p>Résultats en moins de 30 secondes grâce aux modèles Swin2SR optimisés pour la super-résolution.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <h3>Confidentialité totale</h3>
+          <p>Vos images ne transitent jamais par nos serveurs. Tout le traitement est direct entre vous et l'API.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3>IA de pointe</h3>
+          <p>Modèles Swin2SR et Real-ESRGAN spécialisés dans la super-résolution jusqu'à ×4.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>Fallback local</h3>
+          <p>Sans connexion ou sans clé API ? Un traitement local via Canvas prend automatiquement le relais.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       TOOL — MAIN APP
+  ═══════════════════════════════════════════ -->
+  <section class="section tool-section" id="tool">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Outil</span>
+        <h2>Améliorez votre image</h2>
+        <p>Importez une image pour commencer. Aucun compte requis.</p>
+      </div>
+
+      <!-- API Key panel -->
+      <div class="api-panel" id="apiPanel">
+        <button class="api-panel-header" id="apiToggle" aria-expanded="false" aria-controls="apiBody">
+          <div class="api-status-row">
+            <span class="status-dot" id="apiDot" data-state="warn" aria-hidden="true"></span>
+            <span id="apiStatusText">Configuration API IA (recommandé pour meilleurs résultats)</span>
+          </div>
+          <svg class="chevron" id="apiChevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="api-panel-body" id="apiBody" hidden>
+          <p>Entrez votre clé <strong>Hugging Face</strong> (gratuite) pour activer la super-résolution IA. La clé est stockée uniquement dans votre navigateur.</p>
+          <div class="api-key-row">
+            <input type="password" id="apiKeyInput" placeholder="hf_xxxxxxxxxxxxxxxxxxxxxxxx" class="text-input" autocomplete="off" spellcheck="false" aria-label="Clé API Hugging Face" />
+            <button class="btn btn-primary btn-sm" id="saveApiKeyBtn">Sauvegarder</button>
+          </div>
+          <div class="api-links-row">
+            <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener noreferrer" class="ext-link">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Obtenir une clé gratuite sur Hugging Face
+            </a>
+          </div>
+          <p class="note">Sans clé API, le traitement local (moins puissant) s'active automatiquement.</p>
+        </div>
+      </div>
+
+      <!-- Drop zone -->
+      <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Zone d'importation d'image. Cliquez ou glissez une image ici.">
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/gif" class="file-input" aria-hidden="true" tabindex="-1" />
+        <div class="dropzone-body">
+          <div class="dz-icon" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <h3>Glissez une image ici</h3>
+          <p>ou <button class="link-btn" id="browseBtn" type="button">parcourez vos fichiers</button></p>
+          <span class="dz-formats">JPG · PNG · WebP · jusqu'à 10 MB</span>
+        </div>
+      </div>
+
+      <!-- Workspace (shown after upload) -->
+      <div class="workspace" id="workspace" hidden>
+        <!-- Left: Controls -->
+        <aside class="ws-controls" aria-label="Paramètres d'amélioration">
+          <div class="ctrl-header">
+            <h3>Réglages</h3>
+            <button class="btn btn-ghost btn-sm" id="resetSettingsBtn" type="button">Réinitialiser</button>
+          </div>
+
+          <div class="ctrl-group">
+            <label for="sharpnessRange">
+              <span>Netteté</span>
+              <output class="ctrl-val" id="sharpnessVal" for="sharpnessRange">70</output>
+            </label>
+            <input type="range" id="sharpnessRange" min="0" max="100" value="70" class="range-input" aria-label="Intensité de netteté" />
+          </div>
+          <div class="ctrl-group">
+            <label for="contrastRange">
+              <span>Contraste</span>
+              <output class="ctrl-val" id="contrastVal" for="contrastRange">50</output>
+            </label>
+            <input type="range" id="contrastRange" min="0" max="100" value="50" class="range-input" aria-label="Intensité du contraste" />
+          </div>
+          <div class="ctrl-group">
+            <label for="denoiseRange">
+              <span>Réduction de bruit</span>
+              <output class="ctrl-val" id="denoiseVal" for="denoiseRange">30</output>
+            </label>
+            <input type="range" id="denoiseRange" min="0" max="100" value="30" class="range-input" aria-label="Intensité de la réduction de bruit" />
+          </div>
+
+          <div class="ctrl-actions">
+            <button class="btn btn-primary btn-lg full-w" id="enhanceBtn" type="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Améliorer avec l'IA
+            </button>
+            <button class="btn btn-secondary btn-lg full-w" id="downloadBtn" type="button" disabled>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Télécharger le résultat
+            </button>
+            <button class="btn btn-ghost btn-sm full-w" id="newImageBtn" type="button">Nouvelle image</button>
+          </div>
+
+          <!-- Processing status -->
+          <div class="status-area" id="statusArea" hidden aria-live="polite">
+            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="status-msg" id="statusMsg">Traitement en cours…</p>
+          </div>
+
+          <!-- Image info -->
+          <div class="img-info" id="imgInfo" hidden>
+            <div class="info-row">
+              <span>Fichier</span>
+              <span id="infoName">—</span>
+            </div>
+            <div class="info-row">
+              <span>Dimensions</span>
+              <span id="infoDims">—</span>
+            </div>
+            <div class="info-row">
+              <span>Taille</span>
+              <span id="infoSize">—</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right: Before/After comparison -->
+        <div class="ws-comparison">
+          <div class="ba-container" id="toolSlider" role="img" aria-label="Comparaison avant/après de l'image">
+            <!-- After layer (base) -->
+            <div class="ba-layer ba-after" id="toolAfterLayer">
+              <img id="toolAfterImg" src="" alt="Image améliorée" />
+              <!-- Placeholder shown before enhancement -->
+              <div class="after-placeholder" id="afterPlaceholder">
+                <div class="placeholder-emoji" aria-hidden="true">✨</div>
+                <p>Cliquez sur <strong>"Améliorer avec l'IA"</strong><br />pour voir le résultat ici</p>
+              </div>
+            </div>
+            <!-- Before layer (clipped) -->
+            <div class="ba-layer ba-before" id="toolBeforeLayer">
+              <img id="toolBeforeImg" src="" alt="Image originale" />
+            </div>
+            <!-- Divider -->
+            <div class="ba-divider" id="toolDivider" aria-hidden="true">
+              <div class="ba-line"></div>
+              <div class="ba-handle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M8 5L1 12L8 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M16 5L23 12L16 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <!-- Labels -->
+            <div class="ba-labels" aria-hidden="true">
+              <span class="ba-lbl ba-lbl--before">Original</span>
+              <span class="ba-lbl ba-lbl--after">Amélioré</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
